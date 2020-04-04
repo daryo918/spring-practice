@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.models.dao.ClienteDao;
+import com.example.demo.models.dao.IClienteDao;
 import com.example.demo.models.entity.Cliente;
 
 
@@ -16,7 +16,7 @@ public class ClienteServiceImplement implements IClienteService{
 	
 
 		@Autowired
-		private ClienteDao clienteDao;
+		private IClienteDao clienteDao;
 
 	@Override
 	@Transactional
@@ -30,14 +30,14 @@ public class ClienteServiceImplement implements IClienteService{
 	@Transactional(readOnly = true)
 	public List<Cliente> findAll() {
 		// TODO Auto-generated method stub
-		return clienteDao.findAll();
+		return (List<Cliente>) clienteDao.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Cliente findOne(Long id) {
 		// TODO Auto-generated method stub
-		return clienteDao.findOne(id);
+		return clienteDao.findById(id).orElse(null);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class ClienteServiceImplement implements IClienteService{
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		
-		clienteDao.delete(id);
+		clienteDao.deleteById(id);
 		
 	}
 
